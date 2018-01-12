@@ -4,6 +4,7 @@ import matchManage from '@/components/matchManage'
 import matchOperation from '@/components/matchOperation'
 import material from '@/components/material'
 import me from '@/components/me'
+import addMaterial from '@/components/addMaterial'
 
 Vue.use(Router)
 
@@ -26,8 +27,13 @@ export default new Router({
     },
     {
       path: '/me',
-      name: '/me',
+      name: 'me',
       component: me
+    },
+    {
+      path: '/addMaterial',
+      name: 'addMaterial',
+      component: addMaterial
     }
   ]
 })

@@ -6,14 +6,16 @@
   background-color: white;
   margin-bottom: 80px;
   margin-top: 5px;
+  overflow: auto;
+  -webkit-overflow-scrolling:touch;
 }
 </style>
 
 <template>
 
 <div class="matchContent">
-    <iframe src="http://localhost:8080/fzkb/matchMobilePage" width="100%" height="100%" scrolling="no" frameborder="0"></iframe>
-</div>
+  <iframe src="http://192.168.3.163:8080/fzkb/matchMobilePage" frameborder="0" height="720px" scrolling='no' style="width: 1px; min-width: 100%; *width: 100%;"></iframe>
+  </div>
 
 </template>
 

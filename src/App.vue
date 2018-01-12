@@ -30,15 +30,6 @@
     margin: 12px;
 }
 
-.file-button {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    opacity: 0;
-}
-
 </style>
 
 <template>
@@ -60,9 +51,7 @@
         <mu-text-field label="密码" hintText="请输入密码" type="password" labelFloat/>
         <br/>
         <mu-raised-button label="登录" class="raised-button" @click="LoginClick" secondary/>
-        <mu-raised-button class="raised-button" label="选择文件">
-            <input type="file" class="file-button">
-        </mu-raised-button>
+
     </div>
 </div>
 

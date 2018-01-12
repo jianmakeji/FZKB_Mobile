@@ -10,7 +10,20 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      '/api': {
+          // 目标服务器地址
+            target: 'http://localhost:8080/fzkb',
+            changeOrigin: true,
+          //  secure: false,
+            pathRewrite: {'^/api': ''}
+      },
+      '/aliyun_oss':{
+            target: 'http://sdx-kt.oss-cn-shanghai.aliyuncs.com/',
+            changeOrigin: true,
+            pathRewrite: {'^/aliyun_oss': ''}
+      }
+    },
 
     // Various Dev Server settings
     host: '192.168.3.163', // can be overwritten by process.env.HOST
