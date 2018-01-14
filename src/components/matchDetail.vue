@@ -54,6 +54,9 @@ export default {
                 createTime:'',
                 userId:'',
                 matchId:0,
+                uwId:0,
+                gcId:0,
+                trId:0,
           }
       },
   methods: {
@@ -61,7 +64,7 @@ export default {
       this.$router.push('/matchManage');
     },
     reviewClick(){
-      this.$router.push('/matchReview');
+      this.$router.push('/matchReview/'+this.uwId+'/'+this.gcId+'/'+this.trId);
     }
   },
   created(){
@@ -80,6 +83,9 @@ export default {
                   that.underwear = response.data.object.underwear+ "?x-oss-process=style/thumb-300";
                   that.greatcoat = response.data.object.greatcoat+ "?x-oss-process=style/thumb-300";
                   that.trousers = response.data.object.trousers+ "?x-oss-process=style/thumb-300";
+                  that.uwId = response.data.object.uwId;
+                  that.gcId = response.data.object.gcId;
+                  that.trId = response.data.object.trId;
                   that.createTime = response.data.object.createTime;
 
               } else {

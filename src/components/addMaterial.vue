@@ -310,7 +310,6 @@ export default {
         },
         created(){
           this.userId = util.ajax.defaults.headers.common['userId'];
-
           this.materialId = this.$route.params.id;
           let that = this;
           if (this.$route.params.id > 0){

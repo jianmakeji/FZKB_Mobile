@@ -50,7 +50,7 @@ export default new Router({
       component: matchDetail
     },
     {
-      path: '/matchReview',
+      path: '/matchReview/:uwId/:gcId/:trId',
       name: 'matchReview',
       component: matchReview
     },

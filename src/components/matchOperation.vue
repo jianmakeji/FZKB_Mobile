@@ -14,7 +14,7 @@
 <template>
 
 <div class="matchContent">
-  <iframe src="http://192.168.3.163:8080/fzkb/matchMobilePage" frameborder="0" height="720px" scrolling='no' style="width: 1px; min-width: 100%; *width: 100%;"></iframe>
+  <iframe :src="matchUrl" frameborder="0" height="720px" scrolling='no' style="width: 1px; min-width: 100%; *width: 100%;"></iframe>
   </div>
 
 </template>
@@ -25,14 +25,18 @@
 export default {
     data() {
             return {
-
+              userId:0,
+              authCode:'',
+              matchUrl:'',
             }
         },
         methods: {
 
         },
         created(){
-
+          this.userId = util.ajax.defaults.headers.common['userId'];
+          this.authCode = util.ajax.defaults.headers.common['authCode'];
+          this.matchUrl = "http://192.168.3.163:8080/fzkb/matchMobilePage?userId"+this.userId+"&authCode="+authCode;
         }
 }
 
