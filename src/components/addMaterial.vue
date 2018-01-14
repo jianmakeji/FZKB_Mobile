@@ -107,7 +107,7 @@
 
 /*eslint-disable*/
 import util from '../libs/util';
-import uploadImage from '../assets/logo.png'
+import uploadImage from '../assets/upload.png'
 
 var g_object_name = "";
 var key = '';

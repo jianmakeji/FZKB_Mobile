@@ -38,10 +38,10 @@
       <mu-icon-button icon="" slot="right"/>
   </mu-appbar>
   <mu-list>
-    <template v-for="item in list">
-      <mu-list-item @click="openBottomSheet">
-        <div class="title">{{item.name}}</div>
-        <div class="createTime">{{item.createTime}}</div>
+    <template v-for="match in list">
+      <mu-list-item @click="openBottomSheet(match.id)">
+        <div class="title">{{match.name}}</div>
+        <div class="createTime">{{match.createTime}}</div>
       </mu-list-item>
       <mu-divider/>
     </template>
@@ -57,6 +57,7 @@
       <mu-list-item title="删除" @click="deleteMatch"/>
     </mu-list>
   </mu-bottom-sheet>
+  <mu-toast v-if="toast" :message="toastMsg" />
 </div>
 </template>
 
@@ -67,15 +68,17 @@ import util from '../libs/util';
 export default {
   data () {
     const list = []
-    for (let i = 0; i < 15; i++) {
-      list.push({'name':'轻商务套装','createTime':'2018-01-13'})
-    }
+
     return {
       list,
       num: 10,
       loading: false,
       scroller: null,
-      bottomSheet: false
+      bottomSheet: false,
+      userId:0,
+      clickMatchId:0,
+      toast: false,
+      toastMsg:'',
     }
   },
   mounted () {
@@ -83,30 +86,85 @@ export default {
   },
   methods: {
     loadMore () {
-      this.loading = true
-      setTimeout(() => {
-        for (let i = this.num; i < this.num + 10; i++) {
-          this.list.push({'name':'轻商务套装','createTime':'2018-01-13'})
-        }
-        this.num += 10
-        this.loading = false
-      }, 2000)
+      this.loadMatchData(10,this.num);
     },
     deleteMatch () {
-
+      let that = this;
+      util.ajax.get('/match/deleteMatch/'+that.clickMatchId, {
+              headers: {
+                  "Content-Type": "application/json"
+              }
+          })
+          .then(function(response) {
+              if (response.data.success == true) {
+                that.list = [];
+                that.loadMatchData(10,0);
+              } else {
+                that.toastMsg = response.data.message;
+                that.showToast();
+              }
+          })
+          .catch(function(response) {
+              that.toastMsg = '获取数据操作失败!';
+              that.showToast();
+          });
     },
     reviewMatch () {
-      this.$router.push('/matchManage');
+      this.$router.push('/matchReview');
     },
     detailMatch () {
-      this.$router.push('/matchManage');
+      this.$router.push('/matchDetail/'+this.clickMatchId);
     },
     closeBottomSheet () {
       this.bottomSheet = false
     },
-    openBottomSheet () {
-      this.bottomSheet = true
+    openBottomSheet (id) {
+      this.bottomSheet = true;
+      this.clickMatchId = id;
+    },
+    loadMatchData(limit,offset){
+      let that = this;
+      util.ajax.get('/match/getDataByPage', {
+              params:{
+                limit: limit,
+                offset: offset,
+                userId:that.userId
+              }
+          }, {
+              headers: {
+                  "Content-Type": "application/json"
+              }
+          })
+          .then(function(response) {
+              if (response.data.success == true) {
+                for (let i = 0; i < response.data.aaData.length; i++){
+                  that.list.push(response.data.aaData[i]);
+                }
+                if (response.data.aaData.length > 0){
+                  that.num = that.num + 10;
+                }
+              } else {
+                that.toastMsg = response.data.message;
+                that.showToast();
+              }
+          })
+          .catch(function(response) {
+              that.toastMsg ='获取数据操作失败!';
+              that.showToast();
+          });
+    },
+    showToast() {
+        this.toast = true
+        if (this.toastTimer) clearTimeout(this.toastTimer)
+        this.toastTimer = setTimeout(() => {
+            this.toast = false
+        }, 2000)
     }
+  },
+  created(){
+    this.userId = util.ajax.defaults.headers.common['userId'];
+    this.list = [];
+    this.loadMatchData(10,0);
   }
 }
 </script>

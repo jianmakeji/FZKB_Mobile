@@ -45,7 +45,7 @@ export default new Router({
       component: changepwd
     },
     {
-      path: '/matchDetail',
+      path: '/matchDetail/:id',
       name: 'matchDetail',
       component: matchDetail
     },

@@ -51,7 +51,9 @@ export default {
                 underwear:'',
                 greatcoat:'',
                 trousers:'',
-                createTime:''
+                createTime:'',
+                userId:'',
+                matchId:0,
           }
       },
   methods: {
@@ -59,7 +61,36 @@ export default {
       this.$router.push('/matchManage');
     },
     reviewClick(){
-      
+      this.$router.push('/matchReview');
+    }
+  },
+  created(){
+    this.userId = util.ajax.defaults.headers.common['userId'];
+    this.matchId = this.$route.params.id;
+
+    if (this.$route.params.id > 0){
+      util.ajax.get('/match/getMatch/' + that.matchId, {
+              headers: {
+                  "Content-Type": "application/json"
+              }
+          })
+          .then(function(response) {
+              if (response.data.resultCode == 200) {
+                  that.name = response.data.object.name;
+                  that.underwear = response.data.object.underwear+ "?x-oss-process=style/thumb-300";
+                  that.greatcoat = response.data.object.greatcoat+ "?x-oss-process=style/thumb-300";
+                  that.trousers = response.data.object.trousers+ "?x-oss-process=style/thumb-300";
+                  that.createTime = response.data.object.createTime;
+
+              } else {
+                  that.toastMsg = response.data.message;
+                  that.showToast();
+              }
+          })
+          .catch(function(response) {
+              that.toastMsg = '操作失败!';
+              that.showToast();
+          });
     }
   }
 }
