@@ -4,6 +4,7 @@
     position: fixed;
     width: 100%;
     top: 0;
+    text-align: center;
 }
 
 .file-button{
@@ -18,6 +19,7 @@
 .demo-raised-button {
   margin-left: 12px;
 }
+
 </style>
 
 <template>
@@ -29,69 +31,74 @@
     </mu-appbar>
     <div style="height:60px;width:100%">
     </div>
-    <mu-text-field label="名称" v-model="formItem.name" labelFloat/>
-    <mu-text-field label="编号" v-model="formItem.number" labelFloat/>
+    <div style="text-align:center">
+      <mu-text-field label="名称" v-model="formItem.name" labelFloat/>
+      <mu-text-field label="编号" v-model="formItem.number" labelFloat/>
 
-    <mu-select-field v-model="formItem.categoryName" label="类别">
-        <mu-menu-item value="艺术品" title="艺术品" />
-        <mu-menu-item value="建筑" title="建筑" />
-        <mu-menu-item value="动物" title="动物" />
-        <mu-menu-item value="植物" title="植物" />
-        <mu-menu-item value="风景" title="风景" />
-    </mu-select-field>
-    <mu-select-field v-model="formItem.select1" label="简单--复杂">
-        <mu-menu-item value="-3.0" title="-3.0" />
-        <mu-menu-item value="-2.5" title="-2.5" />
-        <mu-menu-item value="-2" title="-2" />
-        <mu-menu-item value="-1.5" title="-1.5" />
-        <mu-menu-item value="-1.0" title="-1.0" />
-        <mu-menu-item value="-0.5" title="-0.5" />
-        <mu-menu-item value="0" title="0" />
-        <mu-menu-item value="0.5" title="0.5" />
-        <mu-menu-item value="1.0" title="1.0" />
-        <mu-menu-item value="1.5" title="1.5" />
-        <mu-menu-item value="2.0" title="2.0" />
-        <mu-menu-item value="2.5" title="2.5" />
-        <mu-menu-item value="3.0" title="3.0" />
-    </mu-select-field>
-    <mu-select-field v-model="formItem.select2" label="硬朗--圆润">
-        <mu-menu-item value="-3.0" title="-3.0" />
-        <mu-menu-item value="-2.5" title="-2.5" />
-        <mu-menu-item value="-2" title="-2" />
-        <mu-menu-item value="-1.5" title="-1.5" />
-        <mu-menu-item value="-1.0" title="-1.0" />
-        <mu-menu-item value="-0.5" title="-0.5" />
-        <mu-menu-item value="0" title="0" />
-        <mu-menu-item value="0.5" title="0.5" />
-        <mu-menu-item value="1.0" title="1.0" />
-        <mu-menu-item value="1.5" title="1.5" />
-        <mu-menu-item value="2.0" title="2.0" />
-        <mu-menu-item value="2.5" title="2.5" />
-        <mu-menu-item value="3.0" title="3.0" />
-    </mu-select-field>
-    <mu-select-field v-model="formItem.select3" label="冷酷--温暖">
-        <mu-menu-item value="-3.0" title="-3.0" />
-        <mu-menu-item value="-2.5" title="-2.5" />
-        <mu-menu-item value="-2" title="-2" />
-        <mu-menu-item value="-1.5" title="-1.5" />
-        <mu-menu-item value="-1.0" title="-1.0" />
-        <mu-menu-item value="-0.5" title="-0.5" />
-        <mu-menu-item value="0" title="0" />
-        <mu-menu-item value="0.5" title="0.5" />
-        <mu-menu-item value="1.0" title="1.0" />
-        <mu-menu-item value="1.5" title="1.5" />
-        <mu-menu-item value="2.0" title="2.0" />
-        <mu-menu-item value="2.5" title="2.5" />
-        <mu-menu-item value="3.0" title="3.0" />
-    </mu-select-field>
-    <div style="text-align:left;margin-left:60px">
-      <label>上传素材图片</label>
-      <img :src="formItem.thumb" style="width:80px;height:80px;border:1px solid" @click="selectFile"/>
-      <input id="uploadFile" type="file" class="file-button" accept="image/*" style="display:none" @change="uploadFileFun($event)">
+      <mu-select-field v-model="formItem.categoryName" label="类别">
+          <mu-menu-item value="艺术品" title="艺术品" />
+          <mu-menu-item value="建筑" title="建筑" />
+          <mu-menu-item value="动物" title="动物" />
+          <mu-menu-item value="植物" title="植物" />
+          <mu-menu-item value="风景" title="风景" />
+      </mu-select-field>
+      <mu-select-field v-model="formItem.select1" label="简单--复杂">
+          <mu-menu-item value="-3.0" title="-3.0" />
+          <mu-menu-item value="-2.5" title="-2.5" />
+          <mu-menu-item value="-2" title="-2.0" />
+          <mu-menu-item value="-1.5" title="-1.5" />
+          <mu-menu-item value="-1.0" title="-1.0" />
+          <mu-menu-item value="-0.5" title="-0.5" />
+          <mu-menu-item value="0" title="0" />
+          <mu-menu-item value="0.5" title="0.5" />
+          <mu-menu-item value="1.0" title="1.0" />
+          <mu-menu-item value="1.5" title="1.5" />
+          <mu-menu-item value="2.0" title="2.0" />
+          <mu-menu-item value="2.5" title="2.5" />
+          <mu-menu-item value="3.0" title="3.0" />
+      </mu-select-field>
+      <mu-select-field v-model="formItem.select2" label="硬朗--圆润">
+          <mu-menu-item value="-3.0" title="-3.0" />
+          <mu-menu-item value="-2.5" title="-2.5" />
+          <mu-menu-item value="-2" title="-2.0" />
+          <mu-menu-item value="-1.5" title="-1.5" />
+          <mu-menu-item value="-1.0" title="-1.0" />
+          <mu-menu-item value="-0.5" title="-0.5" />
+          <mu-menu-item value="0" title="0" />
+          <mu-menu-item value="0.5" title="0.5" />
+          <mu-menu-item value="1.0" title="1.0" />
+          <mu-menu-item value="1.5" title="1.5" />
+          <mu-menu-item value="2.0" title="2.0" />
+          <mu-menu-item value="2.5" title="2.5" />
+          <mu-menu-item value="3.0" title="3.0" />
+      </mu-select-field>
+      <mu-select-field v-model="formItem.select3" label="冷酷--温暖">
+          <mu-menu-item value="-3.0" title="-3.0" />
+          <mu-menu-item value="-2.5" title="-2.5" />
+          <mu-menu-item value="-2" title="-2.0" />
+          <mu-menu-item value="-1.5" title="-1.5" />
+          <mu-menu-item value="-1.0" title="-1.0" />
+          <mu-menu-item value="-0.5" title="-0.5" />
+          <mu-menu-item value="0" title="0" />
+          <mu-menu-item value="0.5" title="0.5" />
+          <mu-menu-item value="1.0" title="1.0" />
+          <mu-menu-item value="1.5" title="1.5" />
+          <mu-menu-item value="2.0" title="2.0" />
+          <mu-menu-item value="2.5" title="2.5" />
+          <mu-menu-item value="3.0" title="3.0" />
+      </mu-select-field>
+      <div style="text-align:left;margin-left:60px">
+        <label>上传素材图片</label>
+        <img :src="formItem.thumb" style="width:80px;height:80px;border:1px solid" @click="selectFile"/>
+        <input id="uploadFile" type="file" class="file-button" accept="image/*" style="display:none" @change="uploadFileFun($event)">
+      </div>
+      <mu-toast v-if="toast" :message="toastMsg" />
     </div>
+
     <div style="width:100%;height:100px">
 
     </div>
+
 </div>
 
 </template>
@@ -159,6 +166,8 @@ export default {
                 id: 0,
                 insertOrUpdate: true,
                 userId: 0,
+                toast: false,
+                toastMsg:'',
             }
         },
         methods: {
@@ -166,7 +175,78 @@ export default {
                 this.$router.push('/material');
             },
             saveClick() {
+              if (this.formItem.name == ''){
+                this.toastMsg = '名称不能为空';
+                this.showToast();
+                return;
+              }
 
+              if (this.formItem.number == ''){
+                this.toastMsg = '编号不能为空';
+                this.showToast();
+                return;
+              }
+
+              if (this.formItem.select1 == ''){
+                this.toastMsg = '简单--复杂不能为空';
+                this.showToast();
+                return;
+              }
+
+              if (this.formItem.select2 == ''){
+                this.toastMsg = '硬朗--圆润不能为空';
+                this.showToast();
+                return;
+              }
+
+              if (this.formItem.select3 == ''){
+                this.toastMsg = '冷酷--温暖不能为空';
+                this.showToast();
+                return;
+              }
+
+              if (this.formItem.imageUrl == ''){
+                this.toastMsg = '图片不能为空';
+                this.showToast();
+                return;
+              }
+
+              var postUrl = "";
+              var postData = {
+                name: this.formItem.name,
+                number: this.formItem.number,
+                categoryName: this.formItem.categoryName,
+                style1: this.formItem.select1,
+                style2: this.formItem.select2,
+                style3: this.formItem.select3,
+                imageUrl: this.formItem.imageUrl,
+                userId:this.userId,
+              };
+              if (this.insertOrUpdate){
+                  postUrl = "/material/createMaterial";
+              }else{
+                  postUrl = "/material/updateMaterial";
+                  postData.id = this.id;
+              }
+              let that = this;
+              util.ajax.post(postUrl, postData, {
+                      headers: {
+                          "Content-Type": "application/json"
+                      }
+                  })
+                  .then(function(response) {
+                      if (response.data.resultCode == 200) {
+                          message.success('添加成功！');
+                          that.$router.push('../materialManage');
+                      } else {
+                          message.error(response.data.message);
+                      }
+                      loadingComponent.finish();
+                  })
+                  .catch(function(response) {
+                      loadingComponent.error();
+                      message.error('操作失败!');
+                  });
             },
             selectFile(){
               document.getElementById("uploadFile").click();
@@ -187,9 +267,6 @@ export default {
                   .catch(function(response) {
 
                   });
-            },
-            changeEvent(){
-
             },
             uploadFileFun(event){
 
@@ -222,7 +299,48 @@ export default {
               }).catch(function(response) {
                 document.getElementById("uploadFile").value = '';
               });
+            },
+            showToast() {
+                this.toast = true
+                if (this.toastTimer) clearTimeout(this.toastTimer)
+                this.toastTimer = setTimeout(() => {
+                    this.toast = false
+                }, 2000)
             }
+        },
+        created(){
+          this.userId = util.ajax.defaults.headers.common['userId'];
+
+          this.materialId = this.$route.params.id;
+          let that = this;
+          if (this.$route.params.id > 0){
+            this.insertOrUpdate = false;
+            util.ajax.get('/material/getMaterial/'+that.materialId, {
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(function(response) {
+                    if (response.data.resultCode == 200) {
+                      that.formItem.name = response.data.object.name;
+                      that.formItem.number = response.data.object.number;
+                      that.formItem.categoryName = response.data.object.categoryName;
+                      that.formItem.select1 = response.data.object.style1;
+                      that.formItem.select2 = response.data.object.style2;
+                      that.formItem.select3 = response.data.object.style3;
+                      that.formItem.thumb = response.data.object.imageUrl + "?x-oss-process=style/thumb-300";
+                      that.formItem.imageUrl = response.data.object.imageUrl;
+                    } else {
+                      that.toastMsg = response.data.message;
+                      that.showToast();
+                    }
+                })
+                .catch(function(response) {
+                    that.toastMsg = '操作失败!';
+                    that.showToast();
+                });
+          }
+
         }
 }
 

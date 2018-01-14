@@ -4,7 +4,6 @@
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: #2c3e50;
 }
 
@@ -22,12 +21,21 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #474a4f;
+    background-color: #616161;
     flex-direction: column;
 }
 
 .raised-button {
     margin: 12px;
+}
+
+.circleCenter{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 60px;
+  margin-top: -30px; /* negative half of the height */
+  margin-left: -30px;
 }
 
 </style>
@@ -46,53 +54,98 @@
     </mu-paper>
 
     <div class="content" v-show="loginPanel">
-        <mu-text-field label="用户名" hintText="请输入用户名" labelFloat/>
+        <mu-text-field label="用户名" hintText="请输入用户名" v-model="username" labelFloat/>
         <br/>
-        <mu-text-field label="密码" hintText="请输入密码" type="password" labelFloat/>
+        <mu-text-field label="密码" hintText="请输入密码" type="password" v-model="password" labelFloat/>
         <br/>
         <mu-raised-button label="登录" class="raised-button" @click="LoginClick" secondary/>
-
     </div>
+    <mu-circular-progress :size="60" :strokeWidth="5" v-show="circleShow" class="circleCenter"/>
+    <mu-toast v-if="toast" :message="toastMsg" style="text-align:center"/>
 </div>
 
 </template>
 
 <script>
 /*eslint-disable*/
+import util from './libs/util';
+var qs = require('qs');
+
 export default {
     name: 'app',
     data() {
         return {
             bottomNav: 'operation',
             bottomNavColor: 'operation',
-            loginPanel: true
+            loginPanel: true,
+            circleShow: false,
+            username: '',
+            password: '',
+            toast: false,
+            toastMsg:'',
         }
     },
     methods: {
         handleChange(val) {
-                this.bottomNav = val
-                console.log("val:" + val);
+                this.bottomNav = val;
                 if (val == 'operation') {
                     this.$router.push('/matchOperation');
-                }
-                else if (val == 'manage') {
-                  console.log("manage");
+                } else if (val == 'manage') {
+                    console.log("manage");
                     this.$router.push('/matchManage');
-                }
-                else if (val == 'material') {
+                } else if (val == 'material') {
                     this.$router.push('/material');
-                }
-                else if (val == 'me') {
+                } else if (val == 'me') {
                     this.$router.push('/me');
                 }
             },
             LoginClick() {
-                this.loginPanel = false;
-            }
-    },
-    created() {
-      this.$router.push('/matchOperation');
-    }
-}
+                if (this.username == '' || this.password == '') {
+                    this.toastMsg = '用户名密码不能为空';
+                    this.showToast();
+                } else {
+                  let that = this;
+                    this.circleShow = true;
+                    util.ajax.post('/authorityCheck', qs.stringify({
+                            username: that.username,
+                            password: that.password
+                        }), {
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded"
+                            }
+                        })
+                        .then(function(response) {
+                            if (response.data.resultCode == 200) {
+                                util.ajax.defaults.headers.common['Authorization'] = response.data.object.token;
+                                util.ajax.defaults.headers.common['userId'] = response.data.object.userId;
+                                util.ajax.defaults.headers.common['roleId'] = response.data.object.roleId;
+
+                                that.loginPanel = false;
+                            } else {
+                                that.toastMsg = response.data.message;
+                                that.showToast();
+                            }
+                            that.circleShow = false;
+                        })
+                        .catch(function(response) {
+                            that.$Loading.error();
+                            that.toastMsg = '用户名密码不能为空';
+                            that.showToast();
+                            that.circleShow = false;
+                        });
+                }
+            },
+          showToast() {
+              this.toast = true
+              if (this.toastTimer) clearTimeout(this.toastTimer)
+              this.toastTimer = setTimeout(() => {
+                  this.toast = false
+              }, 2000)
+          }
+        },
+        created() {
+            this.$router.push('/matchOperation');
+        }
+      }
 
 </script>
