@@ -26,6 +26,6 @@ util.aliyunoss = axios.create({
     timeout: 30000
 });
 
-util.threeJsUrl = "http://localhost:8080/fzkb/";
+util.threeJsUrl = "http://192.168.3.163:8080/fzkb/";
 
 export default util;

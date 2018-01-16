@@ -9,6 +9,12 @@
   width: 160px;
   height: 160px;
 }
+
+.lineStyle{
+  margin-left:30px;
+  font-size:18px;
+  margin-top:10px;
+}
 </style>
 
 <template>
@@ -20,22 +26,22 @@
   </mu-appbar>
   <div style="height:60px;width:100%">
   </div>
-  <div>
+  <div class="lineStyle">
     <span>名称：{{name}}</span>
   </div>
-  <div>
+  <div  class="lineStyle">
     <span>创建时间：{{createTime}}</span>
   </div>
-  <div>
-    <span>内搭</span>
+  <div  class="lineStyle">
+    <span>内搭:</span>
     <img :src="underwear" class="thumb"/>
   </div>
-  <div>
-    <span>外搭</span>
+  <div  class="lineStyle">
+    <span>外搭:</span>
     <img :src="greatcoat" class="thumb"/>
   </div>
-  <div>
-    <span>裤装</span>
+  <div  class="lineStyle">
+    <span>裤装:</span>
     <img :src="trousers" class="thumb"/>
   </div>
 </div>
@@ -44,6 +50,7 @@
 
 <script>
 /*eslint-disable*/
+import util from '../libs/util';
 export default {
   data() {
           return {
@@ -71,6 +78,7 @@ export default {
     this.userId = util.ajax.defaults.headers.common['userId'];
     this.matchId = this.$route.params.id;
 
+    let that = this;
     if (this.$route.params.id > 0){
       util.ajax.get('/match/getMatch/' + that.matchId, {
               headers: {

@@ -25,10 +25,12 @@
       <mu-icon-button icon="navigate_before" slot="left" @click="backClick" />
       <mu-icon-button icon="" slot="right"/>
   </mu-appbar>
-  <div style="height:60px;width:100%">
+  <div style="height:50px;width:100%">
   </div>
   <div class="matchContent">
     <iframe :src="matchUrl" frameborder="0" height="720px" scrolling='no' style="width: 1px; min-width: 100%; *width: 100%;"></iframe>
+    </div>
+    <div style="height:50px;width:100%">
     </div>
 </div>
 
@@ -52,7 +54,7 @@ export default {
   created(){
     this.userId = util.ajax.defaults.headers.common['userId'];
     this.authCode = util.ajax.defaults.headers.common['authCode'];
-    this.matchUrl = "matchReview?uwId="+this.$route.params.uwId+"&gcId="+this.$route.params.gcId+"&trId="+this.$route.params.trId;
+    this.matchUrl = util.threeJsUrl + "matchReview?uwId="+this.$route.params.uwId+"&gcId="+this.$route.params.gcId+"&trId="+this.$route.params.trId;
   }
 }
 

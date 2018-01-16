@@ -59,9 +59,9 @@
 </template>
 
 <script>
-
-import util from '../libs/util';
 /*eslint-disable*/
+import util from '../libs/util';
+
 export default {
     data() {
             return {

@@ -69,11 +69,11 @@ export default {
       this.$router.push('/changepwd');
     },
     clearCache(){
-      that.toastMsg = "缓存清除成功";
-      that.showToast();
+      this.toastMsg = "缓存清除成功";
+      this.showToast();
     },
     logOut(){
-      this.$router.push('/');
+      self.location = '/';
     },
     showToast() {
         this.toast = true

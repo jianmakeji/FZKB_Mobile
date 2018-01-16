@@ -29,13 +29,14 @@
     margin: 12px;
 }
 
-.circleCenter{
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 60px;
-  margin-top: -30px; /* negative half of the height */
-  margin-left: -30px;
+.circleCenter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 60px;
+    margin-top: -30px;
+    /* negative half of the height */
+    margin-left: -30px;
 }
 
 </style>
@@ -60,13 +61,14 @@
         <br/>
         <mu-raised-button label="登录" class="raised-button" @click="LoginClick" secondary/>
     </div>
-    <mu-circular-progress :size="60" :strokeWidth="5" v-show="circleShow" class="circleCenter"/>
-    <mu-toast v-if="toast" :message="toastMsg" style="text-align:center"/>
+    <mu-circular-progress :size="60" :strokeWidth="5" v-show="circleShow" class="circleCenter" />
+    <mu-toast v-if="toast" :message="toastMsg" style="text-align:center" />
 </div>
 
 </template>
 
 <script>
+
 /*eslint-disable*/
 import util from './libs/util';
 var qs = require('qs');
@@ -82,7 +84,7 @@ export default {
             username: '',
             password: '',
             toast: false,
-            toastMsg:'',
+            toastMsg: '',
         }
     },
     methods: {
@@ -91,7 +93,6 @@ export default {
                 if (val == 'operation') {
                     this.$router.push('/matchOperation');
                 } else if (val == 'manage') {
-                    console.log("manage");
                     this.$router.push('/matchManage');
                 } else if (val == 'material') {
                     this.$router.push('/material');
@@ -104,7 +105,7 @@ export default {
                     this.toastMsg = '用户名密码不能为空';
                     this.showToast();
                 } else {
-                  let that = this;
+                    let that = this;
                     this.circleShow = true;
                     util.ajax.post('/authorityCheck', qs.stringify({
                             username: that.username,
@@ -119,7 +120,7 @@ export default {
                                 util.ajax.defaults.headers.common['Authorization'] = response.data.object.token;
                                 util.ajax.defaults.headers.common['userId'] = response.data.object.userId;
                                 util.ajax.defaults.headers.common['roleId'] = response.data.object.roleId;
-
+                                that.$router.push('/matchOperation');
                                 that.loginPanel = false;
                             } else {
                                 that.toastMsg = response.data.message;
@@ -135,17 +136,18 @@ export default {
                         });
                 }
             },
-          showToast() {
-              this.toast = true
-              if (this.toastTimer) clearTimeout(this.toastTimer)
-              this.toastTimer = setTimeout(() => {
-                  this.toast = false
-              }, 2000)
-          }
-        },
-        created() {
-            this.$router.push('/matchOperation');
-        }
-      }
+            showToast() {
+                this.toast = true
+                if (this.toastTimer) clearTimeout(this.toastTimer)
+                this.toastTimer = setTimeout(() => {
+                    this.toast = false
+                }, 2000)
+            }
+    },
+    created() {
+        //this.$router.push('/matchOperation');
+
+    }
+}
 
 </script>

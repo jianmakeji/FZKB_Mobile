@@ -4,7 +4,6 @@
   height: 80%;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  border: 1px solid #d9d9d9;
 }
 
 .appBar {
@@ -37,7 +36,7 @@
       <mu-icon-button icon="" slot="left"/>
       <mu-icon-button icon="" slot="right"/>
   </mu-appbar>
-  <mu-list>
+  <mu-list style="margin-top:50px">
     <template v-for="match in list">
       <mu-list-item @click="openBottomSheet(match.id)">
         <div class="title">{{match.name}}</div>
@@ -62,9 +61,9 @@
 </template>
 
 <script>
-
-import util from '../libs/util';
 /*eslint-disable*/
+import util from '../libs/util';
+
 export default {
   data () {
     const list = []
@@ -110,9 +109,23 @@ export default {
           });
     },
     reviewMatch () {
-      this.$router.push('/matchReview');
+      var uwId = 0;
+      var gcId = 0;
+      var trId = 0;
+      for (var i = 0; i < this.list.length; i++){
+        var match = this.list[i];
+        if (match.id == this.clickMatchId){
+          uwId = match.uwId;
+          gcId = match.gcId;
+          trId = match.trId;
+          break;
+        }
+      }
+      this.$router.push('/matchReview/'+uwId+'/'+gcId+'/'+trId);
     },
     detailMatch () {
+
+      console.log('/matchDetail/'+this.clickMatchId);
       this.$router.push('/matchDetail/'+this.clickMatchId);
     },
     closeBottomSheet () {
