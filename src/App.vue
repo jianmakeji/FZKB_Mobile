@@ -120,6 +120,8 @@ export default {
                                 util.ajax.defaults.headers.common['Authorization'] = response.data.object.token;
                                 util.ajax.defaults.headers.common['userId'] = response.data.object.userId;
                                 util.ajax.defaults.headers.common['roleId'] = response.data.object.roleId;
+                                //localStorage.setItem('token',response.data.object.token);
+                                localStorage.setItem('username',that.username);
                                 that.$router.push('/matchOperation');
                                 that.loginPanel = false;
                             } else {
@@ -129,7 +131,6 @@ export default {
                             that.circleShow = false;
                         })
                         .catch(function(response) {
-                            that.$Loading.error();
                             that.toastMsg = '用户名密码不能为空';
                             that.showToast();
                             that.circleShow = false;
@@ -145,8 +146,31 @@ export default {
             }
     },
     created() {
+        this.username = localStorage.getItem('username');
         //this.$router.push('/matchOperation');
-
+        /*
+        let that = this;
+        util.ajax.get('/JudgeTokenOvertime', {
+              params:{
+                token: localStorage.getItem('token')
+              }
+            }, {
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(function(response) {
+              if (response.data.resultCode == 200){
+                that.loginPanel = false;
+              }
+              else{
+                that.loginPanel = true;
+              }
+            })
+            .catch(function(response) {
+              that.loginPanel = true;
+            });
+            */
     }
 }
 

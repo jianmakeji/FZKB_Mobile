@@ -89,7 +89,7 @@ export default {
     },
     deleteMatch () {
       let that = this;
-      util.ajax.get('/match/deleteMatch/'+that.clickMatchId, {
+      util.ajax.delete('/match/deleteMatch/'+that.clickMatchId, {
               headers: {
                   "Content-Type": "application/json"
               }
