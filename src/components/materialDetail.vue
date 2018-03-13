@@ -39,13 +39,13 @@
         <span>类别：{{formItem.categoryName}}</span>
       </div>
       <div class="lineStyle">
-        <span>简单--复杂：{{formItem.select1}}</span>
+        <span>商务--休闲：{{formItem.select1}}</span>
       </div>
       <div class="lineStyle">
-        <span>硬朗--圆润：{{formItem.select2}}</span>
+        <span>单色--杂色：{{formItem.select2}}</span>
       </div>
       <div class="lineStyle">
-        <span>冷酷--温暖：{{formItem.select3}}</span>
+        <span>冷冬--暖夏：{{formItem.select3}}</span>
       </div>
       <img :src="formItem.thumb" style="width:160px;height:160px;margin-left:30px;margin-top:10px"/>
     </div>
